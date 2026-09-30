@@ -35,3 +35,15 @@ jobs:
           python -m lakehouse run
           python -m lakehouse run | grep "nothing to do"
           python -m lakehouse reconcile
+
+  docker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose build
+      - name: Pipeline inside the container
+        run: |
+          docker compose run --rm generate generate --days 3 --events-per-day 500
+          docker compose run --rm pipeline run
+          docker compose run --rm pipeline reconcile
