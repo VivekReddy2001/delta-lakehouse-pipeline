@@ -1,0 +1,16 @@
+# docker compose run --rm generate      # land 10 days of telemetry
+# docker compose run --rm pipeline      # process every pending batch
+# docker compose run --rm pipeline show # row counts + ledger
+services:
+  generate:
+    build: .
+    volumes: ["./lake:/data"]
+    command: ["generate", "--days", "10"]
+
+  pipeline:
+    build: .
+    volumes: ["./lake:/data"]
+    environment:
+      SPARK_MASTER: local[*]
+      LAKEHOUSE_SHUFFLE_PARTITIONS: "8"
+    command: ["run"]

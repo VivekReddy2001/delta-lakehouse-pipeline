@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Cache Delta Lake jars
+        uses: actions/cache@v4
+        with:
+          path: ~/.ivy2
+          key: ivy-delta-3.2.1
+      - run: pip install -e ".[dev]"
+      - run: ruff check . && ruff format --check .
+      - run: pytest
+      - name: End-to-end run with a crash and recovery
+        run: |
+          python -m lakehouse generate --days 6 --events-per-day 1000
+          python -m lakehouse run --batch 2026-01-01 --batch 2026-01-02
+          python -m lakehouse run --batch 2026-01-03 --crash-after gold_daily || echo "crashed as intended"
+          python -m lakehouse run
+          python -m lakehouse run | grep "nothing to do"
+          python -m lakehouse reconcile

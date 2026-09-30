@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "delta-lakehouse-pipeline"
+version = "0.1.0"
+description = "Idempotent PySpark + Delta Lake pipeline for access telemetry: daily aggregates and rolling 30-day features."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Vivek Reddy Pitta" }]
+requires-python = ">=3.10"
+dependencies = ["pyspark==3.5.3", "delta-spark==3.2.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[tool.setuptools]
+packages = ["lakehouse"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests", "."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["lakehouse", "conftest"]
