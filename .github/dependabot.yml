@@ -4,6 +4,8 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    # Only raise a lower bound when the newest release falls outside it.
+    versioning-strategy: increase-if-necessary
     groups:
       python-dependencies:
         patterns: ["*"]
