@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ~/.ivy2
-          key: ivy-delta-3.2.1
+          key: ivy-delta-4.4.0
       - run: pip install -e ".[dev]"
       - run: ruff check . && ruff format --check .
       - run: pytest

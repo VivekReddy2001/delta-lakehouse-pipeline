@@ -1,8 +1,8 @@
 # delta-lakehouse-pipeline
 
 [![CI](https://github.com/VivekReddy2001/delta-lakehouse-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/VivekReddy2001/delta-lakehouse-pipeline/actions/workflows/ci.yml)
-![PySpark 3.5](https://img.shields.io/badge/PySpark-3.5-E25A1C)
-![Delta Lake 3.2](https://img.shields.io/badge/Delta%20Lake-3.2-00ADD4)
+![PySpark 4.2](https://img.shields.io/badge/PySpark-4.2-E25A1C)
+![Delta Lake 4.4](https://img.shields.io/badge/Delta%20Lake-4.4-00ADD4)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
 A PySpark + Delta Lake pipeline that turns raw zero-trust access telemetry
@@ -185,7 +185,7 @@ synthetic telemetry with the properties that matter:
 
 ## Quick start
 
-Requires Python 3.10+ and Java 17 (Spark 3.5).
+Requires Python 3.10+ and Java 17 or newer (Spark 4).
 
 ```bash
 pip install -e ".[dev]"
